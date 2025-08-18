@@ -1,0 +1,67 @@
+<!DOCTYPE html> <!-- Documento HTML5 -->
+<html lang="es"> <!-- Contenido en español -->
+<head>
+  <meta charset="utf-8" /> <!-- Codificación de caracteres UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Adaptación a móviles -->
+  <title>CamisArt - Galería</title> <!-- Título en la pestaña del navegador -->
+  <link rel="stylesheet" href="css/estilo.css"> <!-- Hoja de estilos externa -->
+</head>
+<body>
+
+<!-- ======= ENCABEZADO Y MENÚ ======= -->
+<header>
+  <nav class="navbar">
+    <!-- Logo e identidad -->
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo CamisArt"> <!-- Imagen del logo -->
+      CamisArt
+    </div>
+    <!-- Barra de navegación -->
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="galeria.html" class="activo">Galería</a></li> <!-- Página actual -->
+      <li><a href="presupuesto.html">Presupuesto</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ======= CONTENIDO PRINCIPAL ======= -->
+<main class="contenedor">
+  <h1>Nuestra Galería</h1> <!-- Título principal -->
+
+  <!-- Contenedor dinámico de la galería -->
+  <div class="galeria" id="galeria">
+    <!-- Item 1 -->
+    <div class="item">
+      <img src="img/camiseta1.jpg" alt="Camiseta 1">
+      <p>Camiseta Urbana</p>
+    </div>
+    <!-- Item 2 -->
+    <div class="item">
+      <img src="img/camiseta2.jpg" alt="Camiseta 2">
+      <p>Camiseta Divertida</p>
+    </div>
+    <!-- Item 3 -->
+    <div class="item">
+      <img src="img/camiseta3.jpg" alt="Camiseta 3">
+      <p>Camiseta Minimalista</p>
+    </div>
+  </div>
+</main>
+
+<!-- ======= PIE DE PÁGINA ======= -->
+<footer>
+  <!-- Redes sociales -->
+  <div class="redes">
+    <a href="#">Facebook</a>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+  </div>
+  <p>© 2025 CamisArt</p>
+</footer>
+
+<!-- Script para manejar la galería dinámica -->
+<script src="js/galeria.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html> <!-- Documento HTML5 -->
+<html lang="es"> <!-- Idioma del contenido -->
+<head>
+  <meta charset="UTF-8"> <!-- Codificación de caracteres UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adaptación a dispositivos móviles -->
+  <title>CamisArt - Contacto</title> <!-- Título de la pestaña -->
+  
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/estilo.css">
+  
+  <!-- Estilos de Leaflet (mapas) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+</head>
+<body>
+
+<!-- ======= ENCABEZADO Y MENÚ ======= -->
+<header>
+  <nav class="navbar">
+    <!-- Logo e identidad -->
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo CamisArt"> <!-- Logo de la empresa -->
+      CamisArt
+    </div>
+    <!-- Barra de navegación -->
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="presupuesto.html">Presupuesto</a></li>
+      <li><a href="contacto.html" class="activo">Contacto</a></li> <!-- Página actual -->
+    </ul>
+  </nav>
+</header>
+
+<!-- ======= CONTENIDO PRINCIPAL ======= -->
+<main class="contenedor">
+  <h1>Contacto</h1>
+
+  <!-- Contenedor del mapa -->
+  <div id="map" style="height: 400px;"></div>
+
+  <!-- Dirección física -->
+  <p>Dirección: Calle Ficticia 123, Ciudad</p>
+</main>
+
+<!-- ======= PIE DE PÁGINA ======= -->
+<footer>
+  <p>&copy; 2025 CamisArt</p>
+</footer>
+
+<!-- ======= SCRIPTS ======= -->
+<!-- Librerías de Leaflet -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+<script>
+  // Coordenadas de la tienda (Madrid en este ejemplo)
+  var tiendaLat = 40.4168;
+  var tiendaLon = -3.7038;
+
+  // Crear el mapa centrado en la tienda
+  var map = L.map('map').setView([tiendaLat, tiendaLon], 13);
+  
+  // Capa de mapa base
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Marcador en la ubicación de la tienda
+  L.marker([tiendaLat, tiendaLon])
+    .addTo(map)
+    .bindPopup('CamisArt - Tienda de camisetas')
+    .openPopup();
+
+  // Obtener ubicación del usuario y calcular ruta
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+          function(position) {
+              var userLat = position.coords.latitude;
+              var userLon = position.coords.longitude;
+
+              // Trazar la ruta entre usuario y tienda
+              L.Routing.control({
+                  waypoints: [
+                      L.latLng(userLat, userLon),
+                      L.latLng(tiendaLat, tiendaLon)
+                  ],
+                  routeWhileDragging: true,
+                  language: 'es'
+              }).addTo(map);
+          },
+          function(error) {
+              alert("No se pudo obtener tu ubicación. Revisa los permisos del navegador.");
+          }
+      );
+  } else {
+      alert("La geolocalización no está soportada en este navegador.");
+  }
+</script>
+</body>
+</html>

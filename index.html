@@ -1,0 +1,66 @@
+<!DOCTYPE html> <!-- Declaración de tipo de documento: HTML5 -->
+<html lang="es"> <!-- Idioma del documento en español -->
+<head>
+<meta charset="UTF-8"> <!-- Codificación de caracteres UTF-8 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Vista adaptable a dispositivos móviles -->
+<title>CamisArt - Inicio</title> <!-- Título de la página -->
+<link rel="stylesheet" href="css/estilo.css"> <!-- Hoja de estilos externa -->
+</head>
+<body>
+
+<!-- ======= ENCABEZADO Y MENÚ DE NAVEGACIÓN ======= -->
+<header>
+    <nav class="navbar">
+        <!-- Logo de la empresa junto al nombre -->
+        <div class="logo">
+        <img src="img/logo.png" alt="Logo CamisArt"> <!-- Imagen del logo -->
+        CamisArt
+        </div>
+        <!-- Barra de navegación -->
+        <ul class="nav-links">
+            <li><a href="index.html" class="activo">Inicio</a></li> <!-- Página activa -->
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="presupuesto.html">Presupuesto</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ======= CONTENIDO PRINCIPAL ======= -->
+<main class="contenedor">
+    <!-- Sección de bienvenida -->
+    <section>
+        <h1>Bienvenido a CamisArt</h1>
+        <p>Tu tienda de camisetas personalizadas.</p>
+    </section>
+
+    <!-- Sección de ventajas -->
+    <section>
+        <h2>Nuestras Ventajas</h2>
+        <ul>
+            <li>Diseños únicos</li>
+            <li>Calidad premium</li>
+            <li>Envío rápido</li>
+        </ul>
+    </section>
+
+    <!-- Sección de noticias (cargadas dinámicamente con JavaScript) -->
+    <section id="noticias">
+        <h2>Últimas Noticias</h2>
+        <p>Cargando noticias...</p> <!-- Texto temporal hasta que JS inserte el contenido -->
+    </section>
+</main>
+
+<!-- ======= PIE DE PÁGINA ======= -->
+<footer>
+    <p>&copy; 2025 CamisArt</p> <!-- Derechos de autor -->
+    <!-- Enlaces a redes sociales -->
+    <a href="#">Facebook</a>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+</footer>
+
+<!-- Script externo que carga noticias desde un archivo JSON o XML -->
+<script src="js/noticias.js"></script>
+</body>
+</html>

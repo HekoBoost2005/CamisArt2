@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres en UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Escalado correcto en móviles -->
+    <title>CamisArt - Presupuesto</title>
+    <link rel="stylesheet" href="css/estilo.css"> <!-- Enlace al archivo de estilos -->
+</head>
+<body>
+
+<!-- ====== CABECERA Y NAVEGACIÓN ====== -->
+<header>
+    <nav class="navbar">
+        <!-- Logo + nombre de la empresa -->
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo CamisArt">
+            CamisArt
+        </div>
+
+        <!-- Menú de navegación -->
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="presupuesto.html" class="activo">Presupuesto</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ====== CONTENIDO PRINCIPAL ====== -->
+<main class="contenedor">
+    <h1>Solicita tu Presupuesto</h1>
+
+    <!-- Formulario para solicitar presupuesto -->
+    <form id="formPresupuesto">
+        
+        <!-- Campo: Datos de contacto -->
+        <fieldset>
+            <legend>Datos de contacto</legend>
+            <label>Nombre: <input type="text" name="nombre" maxlength="15" required></label>
+            <label>Apellidos: <input type="text" name="apellidos" maxlength="40" required></label>
+            <label>Teléfono: <input type="tel" name="telefono" maxlength="9" required></label>
+            <label>Email: <input type="email" name="email" required></label>
+        </fieldset>
+
+        <!-- Campo: Selección de producto y extras -->
+        <fieldset>
+            <legend>Opciones de producto</legend>
+
+            <!-- Selector de tipo de camiseta -->
+            <label>Elige tu camiseta:
+                <select id="producto" required>
+                    <option value="">-- Selecciona --</option>
+                    <option value="20">Camiseta básica - 20€</option>
+                    <option value="30">Camiseta con diseño - 30€</option>
+                    <option value="40">Camiseta personalizada - 40€</option>
+                </select>
+            </label>
+
+            <!-- Plazo de entrega -->
+            <label>Plazo de entrega (días): 
+                <input type="number" id="plazo" min="1" max="30" required>
+            </label>
+
+            <!-- Lista de extras con coste adicional -->
+            <p>Extras:</p>
+            <label><input type="checkbox" name="extra" value="5"> Envío urgente (+5€)</label>
+            <label><input type="checkbox" name="extra" value="10"> Empaque regalo (+10€)</label>
+            <label><input type="checkbox" name="extra" value="15"> Estampado adicional (+15€)</label>
+
+            <!-- Total dinámico -->
+            <p>Total estimado: <span id="total">0€</span></p>
+        </fieldset>
+
+        <!-- Aceptación de condiciones -->
+        <label><input type="checkbox" required> Acepto las condiciones</label>
+
+        <!-- Botones de envío y reseteo -->
+        <button type="submit">Enviar</button>
+        <button type="reset">Restablecer</button>
+    </form>
+</main>
+
+<!-- ====== PIE DE PÁGINA ====== -->
+<footer>
+    <!-- Enlaces a redes sociales -->
+    <div class="redes">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+
+    <!-- Dirección y aviso legal -->
+    <p>Dirección: Calle Ficticia 123, Ciudad</p>
+    <p><a href="#">Aviso legal</a></p>
+</footer>
+
+<!-- ====== SCRIPT DE CÁLCULO DE PRESUPUESTO ====== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Referencias a elementos del DOM
+    const producto = document.getElementById("producto");
+    const plazo = document.getElementById("plazo");
+    const totalOutput = document.getElementById("total");
+
+    // Función para calcular el total
+    function calcularPresupuesto() {
+        let total = 0;
+
+        // Sumar precio del producto seleccionado
+        if (producto.value) total += parseFloat(producto.value);
+
+        // Sumar precios de los extras seleccionados
+        document.querySelectorAll('input[name="extra"]:checked').forEach(el => {
+            total += parseFloat(el.value);
+        });
+
+        // Aplicar descuento según plazo de entrega
+        const dias = parseInt(plazo.value);
+        if (!isNaN(dias)) {
+            if (dias <= 3) total *= 0.9;   // 10% de descuento si es muy rápido
+            else if (dias <= 7) total *= 0.95; // 5% de descuento si es medio
+        }
+
+        // Mostrar total formateado con 2 decimales
+        totalOutput.textContent = total.toFixed(2) + "€";
+    }
+
+    // Eventos para recalcular presupuesto en cambios
+    producto.addEventListener("change", calcularPresupuesto);
+    plazo.addEventListener("input", calcularPresupuesto);
+    document.querySelectorAll('input[name="extra"]').forEach(el => {
+        el.addEventListener("change", calcularPresupuesto);
+    });
+});
+</script>
+
+</body>
+</html>
