@@ -2,20 +2,26 @@
 // Carga dinámica de noticias desde un archivo JSON y las muestra en la página
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Ruta del archivo JSON con las noticias
-    const urlNoticias = "data/noticias.json";
     const contenedor = document.getElementById("noticias");
+
+    // Detectar si estamos en GitHub Pages o en local
+    let urlNoticias;
+    if (location.hostname === "localhost" || location.protocol === "file:") {
+        // Si se abre en local (file:// o localhost)
+        urlNoticias = "data/noticias.json";
+    } else {
+        // Si está publicado en GitHub Pages
+        urlNoticias = location.origin + "/CamisArt/data/noticias.json";
+    }
 
     // Función para crear y mostrar las noticias
     function mostrarNoticias(noticias) {
         contenedor.innerHTML = ""; // Limpiar contenido previo
 
         noticias.forEach(noticia => {
-            // Crear un contenedor para cada noticia
             const div = document.createElement("div");
-            div.classList.add("noticia"); // Clase para CSS
+            div.classList.add("noticia"); 
 
-            // Título y contenido de la noticia
             div.innerHTML = `
                 <h3>${noticia.titulo}</h3>
                 <p>${noticia.contenido}</p>
@@ -34,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             mostrarNoticias(data);
         })
-        .catch(() => {
+        .catch(err => {
+            console.error("Error cargando noticias:", err);
             contenedor.innerHTML = "<p>Error al cargar las noticias.</p>";
         });
 });
