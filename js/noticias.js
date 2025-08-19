@@ -1,54 +1,40 @@
 // noticias.js - CamisArt
 // Carga dinámica de noticias desde un archivo JSON y las muestra en la página
 
-document.addEventListener("DOMContentLoaded", () => {
-  const contenedor = document.getElementById("noticias");
+document.addEventListener("DOMContentLoaded", function () {
+    // Ruta del archivo JSON con las noticias
+    const urlNoticias = "data/noticias.json";
+    const contenedor = document.getElementById("noticias");
 
-  // Devuelve el prefijo correcto para encontrar /data/noticias.json
-  // - Local (file://, localhost): ""  -> "data/noticias.json"
-  // - GitHub Pages (usuario.github.io/Repo/...): "/Repo/"
-  function getBasePath() {
-    const isLocal =
-      location.protocol === "file:" ||
-      location.hostname === "localhost" ||
-      location.hostname === "127.0.0.1";
+    // Función para crear y mostrar las noticias
+    function mostrarNoticias(noticias) {
+        contenedor.innerHTML = ""; // Limpiar contenido previo
 
-    if (isLocal) return "";
+        noticias.forEach(noticia => {
+            // Crear un contenedor para cada noticia
+            const div = document.createElement("div");
+            div.classList.add("noticia"); // Clase para CSS
 
-    // En GitHub Pages de proyecto, la URL es: https://usuario.github.io/REPO/...
-    // Tomamos el primer segmento del path como nombre del repo.
-    const segments = location.pathname.split("/").filter(Boolean);
-    if (location.hostname.endsWith("github.io") && segments.length) {
-      return `/${segments[0]}/`; // p.ej. "/CamisArt/"
+            // Título y contenido de la noticia
+            div.innerHTML = `
+                <h3>${noticia.titulo}</h3>
+                <p>${noticia.contenido}</p>
+            `;
+
+            contenedor.appendChild(div);
+        });
     }
 
-    // Otros servidores (custom domain o user site)
-    return "/";
-  }
-
-  const basePath = getBasePath();
-  const urlNoticias = `${basePath}data/noticias.json`;
-  // Útil para depurar si algo falla:
-  console.log("Cargando noticias desde:", urlNoticias);
-
-  function mostrarNoticias(noticias) {
-    contenedor.innerHTML = "";
-    noticias.forEach((noticia) => {
-      const div = document.createElement("article");
-      div.className = "noticia";
-      div.innerHTML = `<h3>${noticia.titulo}</h3><p>${noticia.contenido}</p>`;
-      contenedor.appendChild(div);
-    });
-  }
-
-  fetch(urlNoticias, { cache: "no-store" })
-    .then((res) => {
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      return res.json();
-    })
-    .then(mostrarNoticias)
-    .catch((err) => {
-      console.error("Error cargando noticias:", urlNoticias, err);
-      contenedor.innerHTML = "<p>Error al cargar las noticias.</p>";
-    });
+    // Cargar las noticias con Fetch API
+    fetch(urlNoticias)
+        .then(res => {
+            if (!res.ok) throw new Error("Error al obtener las noticias");
+            return res.json();
+        })
+        .then(data => {
+            mostrarNoticias(data);
+        })
+        .catch(() => {
+            contenedor.innerHTML = "<p>Error al cargar las noticias.</p>";
+        });
 });
