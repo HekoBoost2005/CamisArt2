@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Cargar las noticias con Fetch API
-    fetch(datos/noticias.json)
+    fetch(urlNoticias)
         .then(res => {
             if (!res.ok) throw new Error("Error al obtener las noticias");
             return res.json();
